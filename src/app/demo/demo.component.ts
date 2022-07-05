@@ -8,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class DemoComponent implements OnInit {
   public currentQuestion: any;
   public backgroundColor: string = 'white';
+  public iconClass: string = '';
   public disabledButton: boolean = false;
+  public showIconResponse: boolean = false;
   public disabledContinueButton: boolean = true;
   public totalPoints = 0;
   public quizQuestions = [
@@ -91,10 +93,13 @@ export class DemoComponent implements OnInit {
 
   submitAnswer(value: boolean): void {
     this.disabledContinueButton = false;
+    this.showIconResponse = true;
     if (!value) {
       this.backgroundColor = 'rgb(237, 85, 101)';
+      this.iconClass = 'fa fa-times-circle-o';
     } else {
       this.backgroundColor = 'rgb(26, 179, 148)';
+      this.iconClass = 'fa fa-check-circle-o';
       this.totalPoints += 1;
     }
     this.disabledButton = true;
@@ -105,5 +110,6 @@ export class DemoComponent implements OnInit {
     this.disabledButton = false;
     this.disabledContinueButton = true;
     this.backgroundColor = 'white';
+    this.showIconResponse = false;
   }
 }

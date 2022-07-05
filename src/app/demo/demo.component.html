@@ -9,7 +9,10 @@
       />
     </div>
     <div class="col-sm-6" [style.background]="backgroundColor">
-      <h4>{{ currentQuestion.id }} - {{ currentQuestion.question }}</h4>
+      <h4>
+        {{ currentQuestion.id }} - {{ currentQuestion.question }}
+        <i *ngIf="showIconResponse" [class]="iconClass" aria-hidden="true"></i>
+      </h4>
       <div *ngFor="let item of currentQuestion.responses">
         <div class="row">
           <button
@@ -36,7 +39,7 @@
           [disabled]="disabledContinueButton"
           (click)="goNext(currentQuestion.id + 1)"
         >
-          Go Next
+          Go Next <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
         </button>
       </div>
     </div>
