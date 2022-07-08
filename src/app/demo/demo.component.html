@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6">
+      <img
+        [src]="currentQuestion.image"
+        alt="image"
+        height="400px"
+        width="400px"
+      />
+    </div>
+    <div class="col-sm-6" [style.background]="backgroundColor">
+      <h4>
+        {{ currentQuestion.id }} - {{ currentQuestion.question }}
+        <i *ngIf="showIconResponse" [class]="iconClass" aria-hidden="true"></i>
+      </h4>
+      <div *ngFor="let item of currentQuestion.responses">
+        <div class="row">
+          <button
+            class="btn btn-primary btn-response-options"
+            (click)="submitAnswer(item.value)"
+            [disabled]="disabledButton"
+          >
+            {{ item.response }}
+          </button>
+          <br />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <h4>Total points : {{ totalPoints }}</h4>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="row">
+        <button
+          class="btn btn-primary"
+          [disabled]="disabledContinueButton"
+          (click)="goNext(currentQuestion.id + 1)"
+        >
+          Go Next <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
