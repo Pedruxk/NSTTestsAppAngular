@@ -91,6 +91,7 @@ export class DemoComponent implements OnInit {
     this.currentQuestion = this.quizQuestions.find((x) => x.id == 1);
   }
 
+  //method to verify answer provided
   submitAnswer(value: boolean): void {
     this.disabledContinueButton = false;
     this.showIconResponse = true;
