@@ -35,11 +35,23 @@
     <div class="col-sm-6">
       <div class="row">
         <button
+          *ngIf="!lgetPercentage"
           class="btn btn-primary"
           [disabled]="disabledContinueButton"
           (click)="goNext(currentQuestion.id + 1)"
         >
           Go Next <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="row">
+        <button
+          *ngIf="lgetPercentage"
+          class="btn btn-primary"
+          [disabled]="disabledContinueButton"
+          (click)="getPercentage()"
+        >
+          Get Percentage
+          <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
         </button>
       </div>
     </div>
