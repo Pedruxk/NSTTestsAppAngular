@@ -10,8 +10,11 @@ export class DemoComponent implements OnInit {
   public backgroundColor: string = 'white';
   public iconClass: string = '';
   public disabledButton: boolean = false;
+  public today: number = Date.now();
   public showIconResponse: boolean = false;
   public disabledContinueButton: boolean = true;
+  public imageResultTest: string = '';
+  public displayImageResultTest: boolean = false;
   public maxID!: any;
   public maxPoints: number = 40;
   public minPercentage: number = 40;
@@ -151,9 +154,15 @@ export class DemoComponent implements OnInit {
   }
 
   getPercentage(): void {
+    debugger;
     let percentage = (this.totalPoints / this.maxPoints) * 100;
+    this.displayImageResultTest = true;
     if (percentage >= this.minPercentage) {
+      this.imageResultTest =
+        'https://image.shutterstock.com/image-vector/passed-rubber-stamp-600w-754421641.jpg';
     } else {
+      this.imageResultTest =
+        'https://c8.alamy.com/compes/2c5twm4/grunge-rojo-prueba-fallo-palabra-redonda-sello-de-goma-sobre-fondo-blanco-2c5twm4.jpg';
     }
   }
 }

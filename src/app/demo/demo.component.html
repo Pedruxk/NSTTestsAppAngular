@@ -1,59 +1,87 @@
 <div class="container">
-  <div class="row">
+  <dl class="row">
+    <dt class="col-sm-3">Name</dt>
+    <dd class="col-sm-9">Pedro Viana</dd>
+
+    <dt class="col-sm-3">Date</dt>
+    <dd class="col-sm-9">{{ today | date: "medium" }}</dd>
+  </dl>
+  <div class="row" *ngIf="!displayImageResultTest">
     <div class="col-sm-6">
-      <img
-        [src]="currentQuestion.image"
-        alt="image"
-        height="400px"
-        width="400px"
-      />
-    </div>
-    <div class="col-sm-6" [style.background]="backgroundColor">
-      <h4>
-        {{ currentQuestion.id }} - {{ currentQuestion.question }}
-        <i *ngIf="showIconResponse" [class]="iconClass" aria-hidden="true"></i>
-      </h4>
-      <div *ngFor="let item of currentQuestion.responses">
-        <div class="row">
-          <button
-            class="btn btn-primary btn-response-options"
-            (click)="submitAnswer(item.value)"
-            [disabled]="disabledButton"
-          >
-            {{ item.response }}
-          </button>
-          <br />
+      <div class="card">
+        <img
+          class="card-img-top img-fluid"
+          [src]="currentQuestion.image"
+          alt="Card image cap"
+        />
+        <div class="card-body">
+          <div class="alert alert-info" role="alert">
+            Total points : <strong>{{ totalPoints }}</strong>
+          </div>
         </div>
       </div>
     </div>
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-header">Question #{{ currentQuestion.id }}</div>
+        <div class="card-body" [style.background]="backgroundColor">
+          <div class="row">
+            <blockquote class="blockquote mb-0">
+              <p>
+                {{ currentQuestion.question }}
+                <i
+                  *ngIf="showIconResponse"
+                  [class]="iconClass"
+                  aria-hidden="true"
+                ></i>
+              </p>
+            </blockquote>
+            <div *ngFor="let item of currentQuestion.responses">
+              <div class="row">
+                <button
+                  class="btn btn-primary btn-response-options"
+                  (click)="submitAnswer(item.value)"
+                  [disabled]="disabledButton"
+                >
+                  {{ item.response }}
+                </button>
+                <br />
+              </div>
+            </div>
+            <button
+              *ngIf="!lgetPercentage"
+              class="btn btn-primary"
+              [disabled]="disabledContinueButton"
+              (click)="goNext(currentQuestion.id + 1)"
+            >
+              Go Next
+              <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+            </button>
+
+            <div class="row">
+              <button
+                *ngIf="lgetPercentage"
+                class="btn btn-primary"
+                [disabled]="disabledContinueButton"
+                (click)="getPercentage()"
+              >
+                Get Percentage
+                <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="!displayImageResultTest">
+      <div class="col-sm-6"></div>
+
+      <div class="col-sm-6"></div>
+    </div>
   </div>
   <div class="row">
-    <div class="col-sm-6">
-      <h4>Total points : {{ totalPoints }}</h4>
-    </div>
-
-    <div class="col-sm-6">
-      <div class="row">
-        <button
-          *ngIf="!lgetPercentage"
-          class="btn btn-primary"
-          [disabled]="disabledContinueButton"
-          (click)="goNext(currentQuestion.id + 1)"
-        >
-          Go Next <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
-        </button>
-      </div>
-      <div class="row">
-        <button
-          *ngIf="lgetPercentage"
-          class="btn btn-primary"
-          [disabled]="disabledContinueButton"
-          (click)="getPercentage()"
-        >
-          Get Percentage
-          <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
-        </button>
-      </div>
+    <div class="col-sm-12" *ngIf="displayImageResultTest">
+      <img [src]="imageResultTest" alt="image" />
     </div>
   </div>
 </div>
