@@ -3,30 +3,29 @@
     <div class="jumbotron">
       <h1 class="display-4">Hello, world!</h1>
       <p class="lead">
-        This a football quiz , please enter your name before starting.
+        This a football quiz , please enter your name before starting. You will
+        have to get more than 70% for passing the test
       </p>
       <hr class="my-4" />
-      <div class="form-group">
-        <label for="userNAme">Name</label>
-        <input
-          type="text"
-          class="form-control"
-          id="userNAme"
-          [(ngModel)]="userNAme"
-          aria-describedby=""
-          placeholder="Enter your name"
-        />
-      </div>
-      <p class="lead">
-        <button
-          class="btn btn-primary btn-lg"
-          (click)="startQuiz()"
-          role="button"
-        >
-          Start Quiz
-        </button>
-      </p>
+      <form>
+        <div class="form-group">
+          <label for="userNAme">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="userNAme"
+            [(ngModel)]="userNAme"
+            aria-describedby="username"
+            placeholder="Enter your name"
+            [ngModelOptions]="{ standalone: true }"
+          />
+        </div>
+        <br />
+      </form>
     </div>
+    <button class="btn btn-primary" (click)="startQuiz()" role="button">
+      Start Quiz
+    </button>
   </div>
 </div>
 <app-demo [userNAme]="userNAme" *ngIf="loadChild"></app-demo>

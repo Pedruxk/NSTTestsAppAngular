@@ -185,6 +185,7 @@ export class DemoComponent implements OnInit {
   ];
 
   ngOnInit(): void {
+    debugger;
     this.userNAme = this.userNAme;
     this.currentQuestion = this.quizQuestions.find((x) => x.id == 1);
     this.maxID = this.quizQuestions.reduce((prev, current) =>
