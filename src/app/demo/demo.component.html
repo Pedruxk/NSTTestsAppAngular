@@ -1,11 +1,17 @@
 <div class="container">
-  <dl class="row">
-    <dt class="col-sm-3">Name</dt>
-    <dd class="col-sm-9">Pedro Viana</dd>
+  <div class="card">
+    <h5 class="card-header">User info</h5>
+    <div class="card-body">
+      <dl class="row">
+        <dt class="col-sm-3">Name</dt>
+        <dd class="col-sm-9">{{ userNAme }}</dd>
 
-    <dt class="col-sm-3">Date</dt>
-    <dd class="col-sm-9">{{ today | date: "medium" }}</dd>
-  </dl>
+        <dt class="col-sm-3">Date</dt>
+        <dd class="col-sm-9">{{ today | date: "medium" }}</dd>
+      </dl>
+    </div>
+  </div>
+
   <div class="row" *ngIf="!displayImageResultTest">
     <div class="col-sm-6">
       <div class="card">
@@ -39,7 +45,7 @@
             <div *ngFor="let item of currentQuestion.responses">
               <div class="row">
                 <button
-                  class="btn btn-primary btn-response-options"
+                  class="btn btn-outline-secondary btn-response-options"
                   (click)="submitAnswer(item.value)"
                   [disabled]="disabledButton"
                 >
@@ -73,15 +79,21 @@
         </div>
       </div>
     </div>
-    <div class="row" *ngIf="!displayImageResultTest">
-      <div class="col-sm-6"></div>
-
-      <div class="col-sm-6"></div>
-    </div>
   </div>
-  <div class="row">
-    <div class="col-sm-12" *ngIf="displayImageResultTest">
-      <img [src]="imageResultTest" alt="image" />
+  <div class="row" *ngIf="displayImageResultTest">
+    <div class="col-sm-6">
+      <img [src]="imageResultTest" width="300px" alt="image" />
+    </div>
+    <div class="col-sm-6">
+      <div class="card text-center">
+        <div class="card-header">Test Result</div>
+        <div class="card-body">
+          <h5 class="card-title">{{ totalPercentage.toFixed(2) }} %</h5>
+          <p class="card-text">
+            {{ resultText }}
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

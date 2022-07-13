@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-demo',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./demo.component.css'],
 })
 export class DemoComponent implements OnInit {
+  @Input() public userNAme!: any;
   public currentQuestion: any;
   public backgroundColor: string = 'white';
   public iconClass: string = '';
@@ -16,8 +17,8 @@ export class DemoComponent implements OnInit {
   public imageResultTest: string = '';
   public displayImageResultTest: boolean = false;
   public maxID!: any;
-  public maxPoints: number = 40;
-  public minPercentage: number = 40;
+  public maxPoints: number = 70;
+  public minPercentage: number = 70;
   public totalPoints = 0;
   public lgetPercentage: boolean = false;
   public percentageApproval = 100;
@@ -117,9 +118,74 @@ export class DemoComponent implements OnInit {
         },
       ],
     },
+    {
+      id: 5,
+      question:
+        'The Pichichi Trophy is awarded to the top scorer in the First Division of:',
+      image:
+        'https://braggssports.com/wp-content/uploads/2021/01/Most-competitive-European-Leagues-this-2020-to-2021-season.jpg',
+      responses: [
+        {
+          response: 'England',
+          value: false,
+        },
+        {
+          response: 'Italy',
+          value: false,
+        },
+        {
+          response: 'Spain',
+          value: true,
+        },
+        {
+          response: 'Germany',
+          value: false,
+        },
+      ],
+    },
+
+    {
+      id: 6,
+      question:
+        'With what name was the first trophy of the Soccer World Cup baptized?',
+      image:
+        'https://pbs.twimg.com/media/BiEVXWSIMAAp5N3?format=jpg&name=small',
+      responses: [
+        {
+          response: 'Jules Rimet',
+          value: true,
+        },
+        {
+          response: 'Abel Lafleur',
+          value: false,
+        },
+      ],
+    },
+    {
+      id: 7,
+      question:
+        'Name with which the goal made by Maradona with his hand in the World Cup in Mexico 86 is known',
+      image:
+        'https://www.larazon.es/resizer/z2ORCtrgmzvWyGHSn5FAJk5bCNI=/600x400/smart/filters:format(webp):quality(65)/cloudfront-eu-central-1.images.arcpublishing.com/larazon/ATKPBIOQVJE5VNWGXEUQDUWPUM.jpg',
+      responses: [
+        {
+          response: 'Chilena',
+          value: false,
+        },
+        {
+          response: 'God´s hand',
+          value: true,
+        },
+        {
+          response: 'Cuautemina',
+          value: false,
+        },
+      ],
+    },
   ];
 
   ngOnInit(): void {
+    this.userNAme = this.userNAme;
     this.currentQuestion = this.quizQuestions.find((x) => x.id == 1);
     this.maxID = this.quizQuestions.reduce((prev, current) =>
       prev.id > current.id ? prev : current
@@ -134,7 +200,7 @@ export class DemoComponent implements OnInit {
       this.backgroundColor = 'rgb(237, 85, 101)';
       this.iconClass = 'fa fa-times-circle-o';
     } else {
-      this.backgroundColor = 'rgb(26, 179, 148)';
+      this.backgroundColor = '#28a745';
       this.iconClass = 'fa fa-check-circle-o';
       this.totalPoints += 10;
     }
@@ -153,16 +219,25 @@ export class DemoComponent implements OnInit {
     }
   }
 
+  public resultTitle: string = '';
+  public resultText: string = '';
+  public totalPercentage: number = 0;
   getPercentage(): void {
     debugger;
-    let percentage = (this.totalPoints / this.maxPoints) * 100;
+    this.totalPercentage = (this.totalPoints / this.maxPoints) * 100;
     this.displayImageResultTest = true;
-    if (percentage >= this.minPercentage) {
+    if (this.totalPercentage >= this.minPercentage) {
       this.imageResultTest =
         'https://image.shutterstock.com/image-vector/passed-rubber-stamp-600w-754421641.jpg';
+      this.resultTitle = 'Passed';
+      this.resultText =
+        'Congratulations! You have finish the test successfully.';
     } else {
       this.imageResultTest =
         'https://c8.alamy.com/compes/2c5twm4/grunge-rojo-prueba-fallo-palabra-redonda-sello-de-goma-sobre-fondo-blanco-2c5twm4.jpg';
+      this.resultTitle = 'Failed';
+      this.resultText =
+        'Sorry! You haven´t been able to finish the test successfully.';
     }
   }
 }
