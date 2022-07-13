@@ -10,9 +10,17 @@ export class DemoComponent implements OnInit {
   public backgroundColor: string = 'white';
   public iconClass: string = '';
   public disabledButton: boolean = false;
+  public today: number = Date.now();
   public showIconResponse: boolean = false;
   public disabledContinueButton: boolean = true;
+  public imageResultTest: string = '';
+  public displayImageResultTest: boolean = false;
+  public maxID!: any;
+  public maxPoints: number = 40;
+  public minPercentage: number = 40;
   public totalPoints = 0;
+  public lgetPercentage: boolean = false;
+  public percentageApproval = 100;
   public quizQuestions = [
     {
       id: 1,
@@ -85,10 +93,37 @@ export class DemoComponent implements OnInit {
         },
       ],
     },
+    {
+      id: 4,
+      question: 'What UEFA EURO tournament did Netherlands win?',
+      image:
+        'https://images2.minutemediacdn.com/image/upload/c_fill,w_912,h_516,f_auto,q_auto,g_auto/shape/cover/sport/uefa-european-championship-1988-vi-archive-5e69095e82781452d0000001.jpg',
+      responses: [
+        {
+          response: 'Portugal 2004',
+          value: false,
+        },
+        {
+          response: 'Sweeden 92',
+          value: false,
+        },
+        {
+          response: 'Germany 88',
+          value: true,
+        },
+        {
+          response: 'England 96',
+          value: false,
+        },
+      ],
+    },
   ];
 
   ngOnInit(): void {
     this.currentQuestion = this.quizQuestions.find((x) => x.id == 1);
+    this.maxID = this.quizQuestions.reduce((prev, current) =>
+      prev.id > current.id ? prev : current
+    );
   }
 
   //method to verify answer provided
@@ -101,16 +136,33 @@ export class DemoComponent implements OnInit {
     } else {
       this.backgroundColor = 'rgb(26, 179, 148)';
       this.iconClass = 'fa fa-check-circle-o';
-      this.totalPoints += 1;
+      this.totalPoints += 10;
     }
     this.disabledButton = true;
   }
 
   goNext(id: number): void {
+    debugger;
     this.currentQuestion = this.quizQuestions.find((x) => x.id == id);
     this.disabledButton = false;
     this.disabledContinueButton = true;
     this.backgroundColor = 'white';
     this.showIconResponse = false;
+    if (id === this.maxID.id) {
+      this.lgetPercentage = true;
+    }
+  }
+
+  getPercentage(): void {
+    debugger;
+    let percentage = (this.totalPoints / this.maxPoints) * 100;
+    this.displayImageResultTest = true;
+    if (percentage >= this.minPercentage) {
+      this.imageResultTest =
+        'https://image.shutterstock.com/image-vector/passed-rubber-stamp-600w-754421641.jpg';
+    } else {
+      this.imageResultTest =
+        'https://c8.alamy.com/compes/2c5twm4/grunge-rojo-prueba-fallo-palabra-redonda-sello-de-goma-sobre-fondo-blanco-2c5twm4.jpg';
+    }
   }
 }
